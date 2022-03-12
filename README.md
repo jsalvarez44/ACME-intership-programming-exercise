@@ -57,11 +57,34 @@ The approach that I found for the solution was to look at the patterns that the 
 
 The methodology used in the development of the exercise was based on the object-oriented paradigm to use the MVC design pattern to structure the project and DAO to access the data located in the .txt file.
 Once the general structure of the project was proposed, the DAO functions were developed to read, clean and organize the data to be able to process them from the controller. Then the models of all the classes (Time, DateTime, Employee) were developed and finally the view.
-The solution algorithm is found in the controller and is based on dividing the input and cleaning it to be able to fill the classes correctly and then process it, each employee is compared with his colleagues but with the condition that there can be no repetitions. The days of attendance at work are compared and if they are the same, a comparison is made between the entrance time and the departure time following the three existing possibilities for there to be a coincidence:
+The solution algorithm is found in the controller and is based on dividing the input and cleaning it to be able to fill the classes correctly and then process it, each employee is compared with his colleagues but with the condition that there can be no repetitions. The days of attendance at work are compared and if they are the same, a comparison is made between the entrance time and the departure time following the three principal existing possibilities with three subposibilities each one for there to be a coincidence:
 
-- If the entrance & departure times are equals.
-- If the entrance time is greater than the departure time & the departure time is less or equals than the entrance time.
-- If the departure time is less than the entrance time & the entrance time is greater or equals than the departure time.
+- If the first entrance time is equal to the second entrance time:
+  - If the first departure time is equal to the second departure time:
+    - We have a match!
+  - If the first departure time is lower to the second departure time:
+    - If the first entrance time is lower to teh second departure time:
+      - We have a match!
+  - If the first departure time is greater to the second departure time:
+    - We have a match!
+- If the first entrance time is lower to the second entrance time:
+  - If the first departure time is equal to the second departure time:
+    - We have a match!
+  - If the first departure time is lower to the second departure time:
+    - If the first entrance time is lower to teh second departure time:
+      - We have a match!
+  - If the first departure time is greater to the second departure time:
+    - We have a match!
+- If the first entrance time is greater to the second entrance time:
+  - If the first departure time is equal to the second departure time:
+    - If the second entrance time is lower to the first departure time:
+      - We have a match!
+  - If the first departure time is lower to the second departure time:
+    - If the second entrance time is lower to the second departure time:
+      - We have a match!
+  - If the first departure time is greater to the second departure time:
+    - If the second entrance time is lower to the first departure time:
+      - We have a match!
 
 If any of these conditions are met, we can conclude that there is a coincidence between two employees at work on the same day at the same time and in this way, we were increasing counter variables to know the expected result.
 
