@@ -100,17 +100,24 @@ def process_employees_data(employees):
                     # Compare if the day of the record is equals to the two employees.
                     if employee_i_record.day == employee_j_record.day:
                         # Use the 'compare' function to return an integer value to the entrance & departure comparations variables.
-                        entrance_comparation = employee_i_record.entrance_time.compare(employee_j_record.entrance_time)
-                        departure_comparation = employee_i_record.departure_time.compare(employee_j_record.departure_time)
+                        entrance_comparation = employee_j_record.entrance_time.compare(employee_i_record.entrance_time)
+                        departure_comparation = employee_j_record.departure_time.compare(employee_i_record.departure_time)
                     
-                        # We have three different posibilities to find a pair:
-                        # 1. If the entrance & departure times are equals.
-                        # 2. If the entrance time is greater than the departure time & the departure time is less or equals than the entrance time.
-                        # 3. If the departure time is less than the entrance time & the entrance time is greater or equals than the departure time.
-                        if(entrance_comparation == 0 and departure_comparation == 0) or (entrance_comparation == 1 and (departure_comparation == -1 or departure_comparation == 0)) or ((entrance_comparation == 1 or entrance_comparation == 0) and departure_comparation == -1):
-                            # if we find a match, we increment the value of the match_counter variable by one & terminate the fourth for loop to optimize the execution time.
+                        # We carry out the necessary comparisons, if there is a match, the counter will be incremented by one.
+                        if(entrance_comparation == -1 or entrance_comparation == 0) and (departure_comparation == 1 or departure_comparation == 0):
                             match_counter += 1
-                            break
+                        elif(entrance_comparation == -1 or entrance_comparation == 0) and (departure_comparation == -1):
+                            temporal_comparation = employee_i_record.entrance_time.compare(employee_j_record.departure_time)
+                            if temporal_comparation == -1:
+                                match_counter += 1
+                        elif(entrance_comparation == 1) and (departure_comparation == 1 or departure_comparation == 0):
+                            temporal_comparation = employee_j_record.entrance_time.compare(employee_i_record.departure_time)
+                            if temporal_comparation == -1:
+                                match_counter += 1
+                        elif(entrance_comparation == 1) and (departure_comparation == -1):
+                            temporal_comparation = employee_j_record.entrance_time.compare(employee_j_record.departure_time)
+                            if temporal_comparation == -1:
+                                match_counter += 1
 
             # We add the match_counter value conerted into string to the str_result variable & append it to the results list.
             str_result += str(match_counter)
